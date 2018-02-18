@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.ninchima.app</groupId>
+  <artifactId>ninchima-parent</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <modules>
+    <module>ncm-api</module>
+    <module>ncm-core</module>
+    <module>ncm-service</module>
+    <module>ncm-web</module>
+  </modules>
+  <properties>
+   	 <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+   	 <java.version>1.8</java.version> 
+   	 <ncm.version>0.0.1-SNAPSHOT</ncm.version>
+   	 <com.alibaba.dubbo.version>2.5.3</com.alibaba.dubbo.version>  
+     <org.apache.zookeeper.version>3.4.6</org.apache.zookeeper.version>  
+     <com.github.sgroschupf.zkclient.version>0.1</com.github.sgroschupf.zkclient.version>  
+   </properties>
+   <parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.10.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+  </parent>
+  <dependencyManagement>
+         <dependencies>
+             <dependency>
+                 <groupId>com.ninchima.app</groupId>
+                 <artifactId>ncm-api</artifactId>
+                 <version>${ncm.version}</version>
+             </dependency>
+              <dependency>
+                 <groupId>com.ninchima.app</groupId>
+                 <artifactId>ncm-core</artifactId>
+                 <version>${ncm.version}</version>
+             </dependency>
+         </dependencies>
+  </dependencyManagement>
+</project>

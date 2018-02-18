@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ninchima.app.test.dao.SusrDao" >
+<resultMap type="com.ninchima.app.test.domain.sUsr" id="findsUsrMap">
+    <id column="INSTU_CDE" property="instuCde" jdbcType="VARCHAR" />
+    <id column="USR_CDE" property="usrCde" jdbcType="VARCHAR" />
+    <result column="EXT_IND" property="extInd" jdbcType="VARCHAR" />
+    <result column="RUN_IND" property="runInd" jdbcType="VARCHAR" />
+    <result column="USR_NAME" property="usrName" jdbcType="VARCHAR" />
+    <result column="USR_ID_TYP" property="usrIdTyp" jdbcType="VARCHAR" />
+    <result column="USR_ID_NO" property="usrIdNo" jdbcType="VARCHAR" />
+    <result column="USR_PASSWORD" property="usrPassword" jdbcType="VARCHAR" />
+    <result column="USR_TEL" property="usrTel" jdbcType="VARCHAR" />
+    <result column="USR_EMAIL" property="usrEmail" jdbcType="VARCHAR" />
+    <result column="USR_BCH" property="usrBch" jdbcType="VARCHAR" />
+    <result column="DEP_CDE" property="depCde" jdbcType="VARCHAR" />
+    <result column="USR_STS" property="usrSts" jdbcType="VARCHAR" />
+    <result column="REST_IND" property="restInd" jdbcType="VARCHAR" />
+    <result column="USR_REPASS_IND" property="usrRepassInd" jdbcType="VARCHAR" />
+    <result column="PASS_MODI_DT" property="passModiDt" jdbcType="VARCHAR" />
+    <result column="USR_RMK" property="usrRmk" jdbcType="VARCHAR" />
+    <result column="LAST_CHG_DT" property="lastChgDt" jdbcType="VARCHAR" />
+    <result column="LAST_CHG_USR" property="lastChgUsr" jdbcType="VARCHAR" />
+    <result column="MANAG_IND" property="managInd" jdbcType="VARCHAR" />
+    <result column="USR_SUPER" property="usrSuper" jdbcType="VARCHAR" />
+    <result column="RISK_GRD" property="riskGrd" jdbcType="VARCHAR" />
+    <result column="QU_GRD" property="quGrd" jdbcType="VARCHAR" />
+    <result column="SPECIAL_ROLE" property="specialRole" jdbcType="VARCHAR" />
+    <result column="EMP_DT" property="empDt" jdbcType="VARCHAR" />
+    <result column="IS_RATE" property="isRate" jdbcType="VARCHAR" /> 
+</resultMap>
+<sql id="Base_Column_List" >
+    INSTU_CDE, USR_CDE, EXT_IND, RUN_IND, USR_NAME, USR_ID_TYP, USR_ID_NO, USR_PASSWORD, 
+    USR_TEL, USR_EMAIL, USR_BCH, (select DEPT_NAME from s_dept c where c.DEPT_NO = b.DEP_CDE) AS DEP_CDE, USR_STS, REST_IND, USR_REPASS_IND, PASS_MODI_DT, 
+    USR_RMK, LAST_CHG_DT, LAST_CHG_USR, MANAG_IND, USR_SUPER, RISK_GRD, QU_GRD, SPECIAL_ROLE, 
+    EMP_DT, IS_RATE
+</sql>
+
+<select id="selectAllUsrLev"  resultMap="findsUsrMap" parameterType="com.ninchima.app.test.domain.sUsr">
+  select distinct QU_GRD from s_usr ORDER BY QU_GRD
+</select>
+
+<select id="selectByInstuAndQugrd"  resultMap="findsUsrMap" parameterType="com.ninchima.app.test.domain.sUsr">
+  SELECT * FROM s_usr AS A 
+  WHERE  USR_STS = 'A'
+         <if test="instuCde != null" >
+             and INSTU_CDE = #{instuCde,jdbcType=VARCHAR} 
+         </if> 
+         <if test="quGrd != null" >
+             and QU_GRD &lt; #{quGrd,jdbcType=VARCHAR} 
+         </if>
+</select>
+
+<select id="selectAll"  resultMap="findsUsrMap" parameterType="com.ninchima.app.test.domain.sUsr">
+  SELECT * FROM s_usr AS A 
+  WHERE  USR_STS = 'A' 
+         <if test="instuCde != null" >
+             and INSTU_CDE = #{instuCde,jdbcType=VARCHAR} 
+         </if> 
+         <if test="quGrd != null" >
+             and QU_GRD = #{quGrd,jdbcType=VARCHAR} 
+         </if>
+</select>
+
+<select id="findusrmoible"  resultMap="findsUsrMap" parameterType="com.ninchima.app.test.domain.sUsr">
+   select 
+   *
+   from S_USR 
+   where 1=1 
+   <if test="quGrd != null" >
+      and QU_GRD = #{quGrd,jdbcType=VARCHAR} 
+    </if> 
+     <if test="instuCde != null" >
+      and INSTU_CDE = #{instuCde,jdbcType=VARCHAR} 
+    </if> 
+    <if test="usrSts != null" >
+       and USR_STS = #{usrSts,jdbcType=VARCHAR}
+    </if> 
+</select>
+
+<select id="findSusrInfoList"  resultMap="findsUsrMap" parameterType="com.ninchima.app.test.domain.sUsr">
+  select  <include refid="Base_Column_List" /> 
+  from (
+   select row_.* from (
+   select     
+    *
+    from S_USR a
+    where  1=1 
+     <if test="instuCde != null" >
+      and INSTU_CDE = #{instuCde,jdbcType=VARCHAR} 
+      </if> 
+    <if test="quGrd != null" >
+      and QU_GRD = #{quGrd,jdbcType=VARCHAR} 
+    </if> 
+      order by   USR_STS,LAST_CHG_DT  desc
+      ) row_  ) b  
+      <if test="beginData != null and endData !=null" >
+      limit #{beginData,jdbcType=VARCHAR},#{endData,jdbcType=VARCHAR} 
+      </if>
+</select>
+
+<select id="findNameUsrByCde"  resultType="java.lang.String" parameterType="java.lang.String">
+   select USR_NAME from S_USR where USR_CDE = #{usrCde,jdbcType=VARCHAR}
+</select>
+
+<select id="findsUsr"  resultMap="findsUsrMap" parameterType="com.ninchima.app.test.domain.sUsr">
+   SELECT *
+   from S_USR
+    where INSTU_CDE = #{instuCde,jdbcType=VARCHAR}
+    and USR_CDE = #{usrCde,jdbcType=VARCHAR}
+</select>
+<select id="findByCode"  resultMap="findsUsrMap" parameterType="com.ninchima.app.test.domain.sUsr">
+   SELECT *
+   from S_USR
+    where  USR_CDE = #{usrCde,jdbcType=VARCHAR}
+    <if test="usrSts != null" >
+		 and  USR_STS = #{usrSts,jdbcType=VARCHAR}
+    </if>
+</select>
+
+<select id="findNumByCDE"  resultType="java.lang.Integer" parameterType="java.lang.String">
+   SELECT count(*)
+   from S_USR
+    where  DEP_CDE = #{depCde,jdbcType=VARCHAR}
+</select>
+
+<select id="instuHasLinkWithUser"  resultType="java.lang.Integer" parameterType="java.lang.String">
+   select count(*)
+   from S_USR
+    where INSTU_CDE = #{instuCde,jdbcType=VARCHAR}
+</select>
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="com.ninchima.app.test.domain.sUsr" >
+    update S_USR
+    <set>
+      <if test="extInd != null" >
+        EXT_IND = #{extInd,jdbcType=VARCHAR},
+      </if>
+      <if test="runInd != null" >
+        RUN_IND = #{runInd,jdbcType=VARCHAR},
+      </if>
+      <if test="usrName != null" >
+        USR_NAME = #{usrName,jdbcType=VARCHAR},
+      </if>
+      <if test="usrIdTyp != null" >
+        USR_ID_TYP = #{usrIdTyp,jdbcType=VARCHAR},
+      </if>
+      <if test="usrIdNo != null" >
+        USR_ID_NO = #{usrIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="usrPassword != null" >
+        USR_PASSWORD = #{usrPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="usrTel != null" >
+        USR_TEL = #{usrTel,jdbcType=VARCHAR},
+      </if>
+      <if test="usrEmail != null" >
+        USR_EMAIL = #{usrEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="usrBch != null" >
+        USR_BCH = #{usrBch,jdbcType=VARCHAR},
+      </if>
+      <if test="depCde != null" >
+        DEP_CDE = #{depCde,jdbcType=VARCHAR},
+      </if>
+      <if test="usrSts != null" >
+        USR_STS = #{usrSts,jdbcType=VARCHAR},
+      </if>
+      <if test="restInd != null" >
+        REST_IND = #{restInd,jdbcType=VARCHAR},
+      </if>
+      <if test="usrRepassInd != null" >
+        USR_REPASS_IND = #{usrRepassInd,jdbcType=VARCHAR},
+      </if>
+      <if test="passModiDt != null" >
+        PASS_MODI_DT = #{passModiDt,jdbcType=VARCHAR},
+      </if>
+      <if test="usrRmk != null" >
+        USR_RMK = #{usrRmk,jdbcType=VARCHAR},
+      </if>
+      <if test="lastChgDt != null" >
+        LAST_CHG_DT = #{lastChgDt,jdbcType=VARCHAR},
+      </if>
+      <if test="lastChgUsr != null" >
+        LAST_CHG_USR = #{lastChgUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="managInd != null" >
+        MANAG_IND = #{managInd,jdbcType=VARCHAR},
+      </if>
+      <if test="usrSuper != null" >
+        USR_SUPER = #{usrSuper,jdbcType=VARCHAR},
+      </if>
+      <if test="riskGrd != null" >
+        RISK_GRD = #{riskGrd,jdbcType=VARCHAR},
+      </if>
+      <if test="quGrd != null" >
+        QU_GRD = #{quGrd,jdbcType=VARCHAR},
+      </if>
+      <if test="specialRole != null" >
+        SPECIAL_ROLE = #{specialRole,jdbcType=VARCHAR},
+      </if>
+      <if test="empDt != null" >
+        EMP_DT = #{empDt,jdbcType=VARCHAR},
+      </if>
+      <if test="isRate != null" >
+        IS_RATE = #{isRate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where INSTU_CDE = #{instuCde,jdbcType=VARCHAR}
+      and USR_CDE = #{usrCde,jdbcType=VARCHAR}
+  </update>
+  
+<insert id="insertByPrimaryKeySelective" parameterType="com.ninchima.app.test.domain.sUsr" >
+    insert into S_USR
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="instuCde != null" >
+        INSTU_CDE ,
+      </if>
+      <if test="usrCde != null" >
+        USR_CDE ,
+      </if>
+      <if test="extInd != null" >
+        EXT_IND ,
+      </if>
+      <if test="runInd != null" >
+        RUN_IND ,
+      </if>
+      <if test="usrName != null" >
+        USR_NAME ,
+      </if>
+      <if test="usrIdTyp != null" >
+        USR_ID_TYP ,
+      </if>
+      <if test="usrIdNo != null" >
+        USR_ID_NO ,
+      </if>
+      <if test="usrPassword != null" >
+        USR_PASSWORD ,
+      </if>
+      <if test="usrTel != null" >
+        USR_TEL ,
+      </if>
+      <if test="usrEmail != null" >
+        USR_EMAIL,
+      </if>
+      <if test="usrBch != null" >
+        USR_BCH ,
+      </if>
+      <if test="depCde != null" >
+        DEP_CDE ,
+      </if>
+      <if test="usrSts != null" >
+        USR_STS ,
+      </if>
+      <if test="restInd != null" >
+        REST_IND ,
+      </if>
+      <if test="usrRepassInd != null" >
+        USR_REPASS_IND ,
+      </if>
+      <if test="passModiDt != null" >
+        PASS_MODI_DT ,
+      </if>
+      <if test="usrRmk != null" >
+        USR_RMK,
+      </if>
+      <if test="lastChgDt != null" >
+        LAST_CHG_DT ,
+      </if>
+      <if test="lastChgUsr != null" >
+        LAST_CHG_USR ,
+      </if>
+      <if test="managInd != null" >
+        MANAG_IND ,
+      </if>
+      <if test="usrSuper != null" >
+        USR_SUPER ,
+      </if>
+      <if test="riskGrd != null" >
+        RISK_GRD ,
+      </if>
+      <if test="quGrd != null" >
+        QU_GRD ,
+      </if>
+      <if test="specialRole != null" >
+        SPECIAL_ROLE ,
+      </if>
+      <if test="empDt != null" >
+        EMP_DT ,
+      </if>
+      <if test="isRate != null" >
+        IS_RATE ,
+      </if>
+     </trim>    
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="instuCde != null" >
+        #{instuCde,jdbcType=VARCHAR},
+      </if>
+      <if test="usrCde != null" >
+         #{usrCde,jdbcType=VARCHAR},
+      </if>
+      <if test="extInd != null" >
+        #{extInd,jdbcType=VARCHAR},
+      </if>
+      <if test="runInd != null" >
+         #{runInd,jdbcType=VARCHAR},
+      </if>
+      <if test="usrName != null" >
+         #{usrName,jdbcType=VARCHAR},
+      </if>
+      <if test="usrIdTyp != null" >
+        #{usrIdTyp,jdbcType=VARCHAR},
+      </if>
+      <if test="usrIdNo != null" >
+        #{usrIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="usrPassword != null" >
+        #{usrPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="usrTel != null" >
+       #{usrTel,jdbcType=VARCHAR},
+      </if>
+      <if test="usrEmail != null" >
+        #{usrEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="usrBch != null" >
+        #{usrBch,jdbcType=VARCHAR},
+      </if>
+      <if test="depCde != null" >
+         #{depCde,jdbcType=VARCHAR},
+      </if>
+      <if test="usrSts != null" >
+         #{usrSts,jdbcType=VARCHAR},
+      </if>
+      <if test="restInd != null" >
+        #{restInd,jdbcType=VARCHAR},
+      </if>
+      <if test="usrRepassInd != null" >
+        #{usrRepassInd,jdbcType=VARCHAR},
+      </if>
+      <if test="passModiDt != null" >
+        #{passModiDt,jdbcType=VARCHAR},
+      </if>
+      <if test="usrRmk != null" >
+        #{usrRmk,jdbcType=VARCHAR},
+      </if>
+      <if test="lastChgDt != null" >
+        #{lastChgDt,jdbcType=VARCHAR},
+      </if>
+      <if test="lastChgUsr != null" >
+        #{lastChgUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="managInd != null" >
+       #{managInd,jdbcType=VARCHAR},
+      </if>
+      <if test="usrSuper != null" >
+       #{usrSuper,jdbcType=VARCHAR},
+      </if>
+      <if test="riskGrd != null" >
+        #{riskGrd,jdbcType=VARCHAR},
+      </if>
+      <if test="quGrd != null" >
+        #{quGrd,jdbcType=VARCHAR},
+      </if>
+      <if test="specialRole != null" >
+        #{specialRole,jdbcType=VARCHAR},
+      </if>
+      <if test="empDt != null" >
+        #{empDt,jdbcType=VARCHAR},
+      </if>
+      <if test="isRate != null" >
+         #{isRate,jdbcType=VARCHAR},
+      </if>
+   </trim>
+  </insert>
+</mapper>
