@@ -1,2 +1,12 @@
-E:\eat_work\ninchima\ninchima-parent\ncm-api\src\main\java\com\ninchima\app\test\service\IsUsrService.java
-E:\eat_work\ninchima\ninchima-parent\ncm-api\src\main\java\com\ninchima\app\test\domain\sUsr.java
+E:\eat_work\ninchima\ninchima-parent\ncm-api\src\main\java\com\ninchima\app\base\domain\Address.java
+E:\eat_work\ninchima\ninchima-parent\ncm-api\src\main\java\com\ninchima\app\base\domain\Restaurants.java
+E:\eat_work\ninchima\ninchima-parent\ncm-api\src\main\java\com\ninchima\app\base\service\IRestaurantActivitiesService.java
+E:\eat_work\ninchima\ninchima-parent\ncm-api\src\main\java\com\ninchima\app\base\domain\RestaurantActivities.java
+E:\eat_work\ninchima\ninchima-parent\ncm-api\src\main\java\com\ninchima\app\base\domain\RestaurantScore.java
+E:\eat_work\ninchima\ninchima-parent\ncm-api\src\main\java\com\ninchima\app\base\service\IRestaurantScoreService.java
+E:\eat_work\ninchima\ninchima-parent\ncm-api\src\main\java\com\ninchima\app\base\domain\RestaurantRecommendReasons.java
+E:\eat_work\ninchima\ninchima-parent\ncm-api\src\main\java\com\ninchima\app\base\service\IRestaurantsService.java
+E:\eat_work\ninchima\ninchima-parent\ncm-api\src\main\java\com\ninchima\app\base\domain\RestaurantFee.java
+E:\eat_work\ninchima\ninchima-parent\ncm-api\src\main\java\com\ninchima\app\base\service\IAddressService.java
+E:\eat_work\ninchima\ninchima-parent\ncm-api\src\main\java\com\ninchima\app\base\service\IRestaurantRecommendReasonsService.java
+E:\eat_work\ninchima\ninchima-parent\ncm-api\src\main\java\com\ninchima\app\base\service\IRestaurantFeeService.java

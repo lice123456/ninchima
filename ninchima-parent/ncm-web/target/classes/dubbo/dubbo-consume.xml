@@ -12,5 +12,18 @@
     <!-- 注册中心暴露服务地址 -->  
    <dubbo:registry protocol="${dubbo.registry.protocol}" address="${dubbo.registry.address}" />  
       
-   <dubbo:reference interface="com.ninchima.app.test.service.IsUsrService" id="sUsrService"  />
+   <!-- <dubbo:reference interface="com.ninchima.app.test.service.IsUsrService" id="sUsrService"  /> -->
+   
+   <!-- 地理位置信息 -->
+	<dubbo:reference interface="com.ninchima.app.base.service.IAddressService" id="addressService" />
+	<!-- 餐厅活动信息表 -->
+	<dubbo:reference interface="com.ninchima.app.base.service.IRestaurantActivitiesService" id="restaurantActivitiesService" />
+	<!--  餐厅配送信息费用表 -->
+	<dubbo:reference interface="com.ninchima.app.base.service.IRestaurantFeeService" id="restaurantFeeService"  />
+	<!-- 餐厅推荐表 -->
+	<dubbo:reference interface="com.ninchima.app.base.service.IRestaurantRecommendReasonsService" id="restaurantRecommendReasonsService"  />
+	<!--  餐厅得分评价表-->
+	<dubbo:reference interface="com.ninchima.app.base.service.IRestaurantScoreService" id="restaurantScoreService"  />
+	<!-- 餐厅信息表 -->
+	<dubbo:reference interface="com.ninchima.app.base.service.IRestaurantsService" id="restaurantsService"  />
 </beans>  

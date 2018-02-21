@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ninchima.app.base.dao.RestaurantRecommendReasonsDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.ninchima.app.base.domain.RestaurantRecommendReasons" id="BaseResultMap">
+        <result property="id" column="id"/>
+        <result property="restaurantId" column="restaurant_id"/>
+        <result property="source" column="source"/>
+        <result property="reason" column="reason"/>
+    </resultMap>
+    
+  <sql id="Base_Column_List" >
+        id,restaurant_id,source,reason 
+  </sql>
+
+	<select id="selectOneByObject" resultMap="BaseResultMap" parameterType="com.ninchima.app.base.domain.RestaurantRecommendReasons">
+		select 
+		<include refid="Base_Column_List" />
+		 from restaurant_recommend_reasons where 1=1
+		 <if test="id != null">
+        	and id = #{id,jdbcType=INTEGER}
+	     </if>
+		 <if test="restaurantId != null">
+        	and restaurant_id = #{restaurantId,jdbcType=INTEGER}
+	     </if>
+		 <if test="source != null">
+        	and source = #{source,jdbcType=VARCHAR}
+	  	 </if>
+		 <if test="reason != null">
+        	and reason = #{reason,jdbcType=VARCHAR}
+	  	 </if>
+	</select>
+
+	<select id="selectListByObject" resultMap="BaseResultMap" parameterType="com.ninchima.app.base.domain.RestaurantRecommendReasons" >
+		select 
+		<include refid="Base_Column_List" />
+		 from restaurant_recommend_reasons where 1=1
+         <if test="id != null">
+        	and id = #{id,jdbcType=INTEGER}
+         </if>
+         <if test="restaurantId != null">
+        	and restaurant_id = #{restaurantId,jdbcType=INTEGER}
+         </if>
+         <if test="source != null">
+        	and source = #{source,jdbcType=VARCHAR}
+         </if>
+         <if test="reason != null">
+        	and reason = #{reason,jdbcType=VARCHAR}
+         </if>
+	</select>
+	 
+	<insert id="insert" parameterType="com.ninchima.app.base.domain.RestaurantRecommendReasons">
+		insert into restaurant_recommend_reasons
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="id != null">
+        	    id ,
+	    	</if>
+			<if test="restaurantId != null">
+        	    restaurant_id ,
+	    	</if>
+			<if test="source != null">
+        	    source ,
+	    	</if>
+			<if test="reason != null">
+        	    reason ,
+	    	</if>
+		</trim>
+    	<trim prefix="values (" suffix=")" suffixOverrides="," >
+    	    <if test="id != null">
+        	   #{id,jdbcType=INTEGER} ,
+        	</if>
+    	    <if test="restaurantId != null">
+        	   #{restaurantId,jdbcType=INTEGER} ,
+        	</if>
+    	    <if test="source != null">
+        	   #{source,jdbcType=VARCHAR} ,
+        	</if>
+    	    <if test="reason != null">
+        	   #{reason,jdbcType=VARCHAR} ,
+        	</if>
+    	</trim>
+	</insert>
+	 
+	<update id="update" parameterType="com.ninchima.app.base.domain.RestaurantRecommendReasons">
+		update restaurant_recommend_reasons 
+		<set>
+			<if test="id != null">
+        	 id = #{id,jdbcType=INTEGER} ,
+       		</if>
+			<if test="restaurantId != null">
+        	 restaurant_id = #{restaurantId,jdbcType=INTEGER} ,
+       		</if>
+			<if test="source != null">
+        	 source = #{source,jdbcType=VARCHAR} ,
+       		</if>
+			<if test="reason != null">
+        	 reason = #{reason,jdbcType=VARCHAR} ,
+       		</if>
+		</set>
+		where 1=1
+       and  id = #{id}
+	</update>
+</mapper>

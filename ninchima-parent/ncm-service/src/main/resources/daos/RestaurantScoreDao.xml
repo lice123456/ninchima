@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ninchima.app.base.dao.RestaurantScoreDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.ninchima.app.base.domain.RestaurantScore" id="BaseResultMap">
+        <result property="id" column="id"/>
+        <result property="restaurantId" column="restaurant_id"/>
+        <result property="source" column="source"/>
+        <result property="compareRating" column="compare_rating"/>
+        <result property="foodScore" column="food_score"/>
+        <result property="serviceScore" column="service_score"/>
+        <result property="starLevel" column="star_level"/>
+        <result property="optTime" column="opt_time"/>
+    </resultMap>
+    
+  <sql id="Base_Column_List" >
+        id,restaurant_id,source,compare_rating,food_score,service_score,star_level,opt_time 
+  </sql>
+
+	<select id="selectOneByObject" resultMap="BaseResultMap" parameterType="com.ninchima.app.base.domain.RestaurantScore">
+		select 
+		<include refid="Base_Column_List" />
+		 from restaurant_score where 1=1
+		 <if test="id != null">
+        	and id = #{id,jdbcType=INTEGER}
+	  	</if>
+		 <if test="restaurantId != null">
+        	and restaurant_id = #{restaurantId,jdbcType=INTEGER}
+	  	</if>
+		 <if test="source != null">
+        	and source = #{source,jdbcType=VARCHAR}
+	  	</if>
+		 <if test="compareRating != null">
+        	and compare_rating = #{compareRating,jdbcType=VARCHAR}
+	  	</if>
+		 <if test="foodScore != null">
+        	and food_score = #{foodScore,jdbcType=VARCHAR}
+	     </if>
+		 <if test="serviceScore != null">
+        	and service_score = #{serviceScore,jdbcType=VARCHAR}
+	     </if>
+		 <if test="starLevel != null">
+        	and star_level = #{starLevel,jdbcType=VARCHAR}
+	  	 </if>
+		 <if test="optTime != null">
+        	and opt_time = #{optTime,jdbcType=VARCHAR}
+	  	</if>
+	</select>
+
+	<select id="selectListByObject" resultMap="BaseResultMap" parameterType="com.ninchima.app.base.domain.RestaurantScore" >
+		select 
+		<include refid="Base_Column_List" />
+		 from restaurant_score where 1=1
+         <if test="id != null">
+        	and id = #{id,jdbcType=INTEGER}
+         </if>
+         <if test="restaurantId != null">
+        	and restaurant_id = #{restaurantId,jdbcType=INTEGER}
+         </if>
+         <if test="source != null">
+        	and source = #{source,jdbcType=VARCHAR}
+         </if>
+         <if test="compareRating != null">
+        	and compare_rating = #{compareRating,jdbcType=VARCHAR}
+         </if>
+         <if test="foodScore != null">
+        	and food_score = #{foodScore,jdbcType=VARCHAR}
+         </if>
+         <if test="serviceScore != null">
+        	and service_score = #{serviceScore,jdbcType=VARCHAR}
+         </if>
+         <if test="starLevel != null">
+        	and star_level = #{starLevel,jdbcType=VARCHAR}
+         </if>
+         <if test="optTime != null">
+        	and opt_time = #{optTime,jdbcType=VARCHAR}
+         </if>
+	</select>
+	 
+	<insert id="insert" parameterType="com.ninchima.app.base.domain.RestaurantScore">
+		insert into restaurant_score
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="id != null">
+        	    id ,
+	    	</if>
+			<if test="restaurantId != null">
+        	    restaurant_id ,
+	    	</if>
+			<if test="source != null">
+        	    source ,
+	    	</if>
+			<if test="compareRating != null">
+        	    compare_rating ,
+	    	</if>
+			<if test="foodScore != null">
+        	    food_score ,
+	    	</if>
+			<if test="serviceScore != null">
+        	    service_score ,
+	    	</if>
+			<if test="starLevel != null">
+        	    star_level ,
+	    	</if>
+			<if test="optTime != null">
+        	    opt_time ,
+	    	</if>
+		</trim>
+    	<trim prefix="values (" suffix=")" suffixOverrides="," >
+    	    <if test="id != null">
+        	   #{id,jdbcType=INTEGER} ,
+        	</if>
+    	    <if test="restaurantId != null">
+        	   #{restaurantId,jdbcType=INTEGER} ,
+        	</if>
+    	    <if test="source != null">
+        	   #{source,jdbcType=VARCHAR} ,
+        	</if>
+    	    <if test="compareRating != null">
+        	   #{compareRating,jdbcType=VARCHAR} ,
+       	 	</if>
+    	    <if test="foodScore != null">
+        	   #{foodScore,jdbcType=VARCHAR} ,
+        	</if>
+    	    <if test="serviceScore != null">
+        	   #{serviceScore,jdbcType=VARCHAR} ,
+        	</if>
+    	    <if test="starLevel != null">
+        	   #{starLevel,jdbcType=VARCHAR} ,
+        	</if>
+    	    <if test="optTime != null">
+        	   #{optTime,jdbcType=VARCHAR} ,
+        	</if>
+    	</trim>
+	</insert>
+	 
+	<update id="update" parameterType="com.ninchima.app.base.domain.RestaurantScore">
+		update restaurant_score 
+		<set>
+			<if test="id != null">
+        	 id = #{id,jdbcType=INTEGER} ,
+       		</if>
+			<if test="restaurantId != null">
+        	 restaurant_id = #{restaurantId,jdbcType=INTEGER} ,
+       		</if>
+			<if test="source != null">
+        	 source = #{source,jdbcType=VARCHAR} ,
+       		</if>
+			<if test="compareRating != null">
+        	 compare_rating = #{compareRating,jdbcType=VARCHAR} ,
+       		</if>
+			<if test="foodScore != null">
+        	 food_score = #{foodScore,jdbcType=VARCHAR} ,
+       		</if>
+			<if test="serviceScore != null">
+        	 service_score = #{serviceScore,jdbcType=VARCHAR} ,
+       		</if>
+			<if test="starLevel != null">
+        	 star_level = #{starLevel,jdbcType=VARCHAR} ,
+       		</if>
+			<if test="optTime != null">
+        	 opt_time = #{optTime,jdbcType=VARCHAR} ,
+       		</if>
+		</set>
+		where 1=1
+       and  id = #{id}
+	</update>
+</mapper>

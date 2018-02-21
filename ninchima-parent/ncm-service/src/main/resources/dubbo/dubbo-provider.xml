@@ -12,11 +12,21 @@
 	<!-- 注册中心暴露服务地址 -->
 	<!-- <dubbo:registry address="multicast://224.5.6.7:1234" /> -->
 	
-   <!-- <dubbo:registry protocol="zookeeper" address="10.170.219.98:2181,10.173.55.173:2181" /> -->
-   <dubbo:registry protocol="${dubbo.registry.protocol}" address="${dubbo.registry.address}" />
-
+    <!-- <dubbo:registry protocol="zookeeper" address="10.170.219.98:2181,10.173.55.173:2181" /> -->
+    <dubbo:registry protocol="${dubbo.registry.protocol}" address="${dubbo.registry.address}" />
 	<!-- 暴露服务 -->
 	<dubbo:protocol name="${dubbo.protocol.name}" port="${dubbo.protocol.port}" />
 	
-	<dubbo:service interface="com.ninchima.app.test.service.IsUsrService" ref="susrService" retries="0" timeout="6000" />
+	<!-- 地理位置信息 -->
+	<dubbo:service interface="com.ninchima.app.base.service.IAddressService" ref="addressService" retries="0" timeout="6000" />
+	<!-- 餐厅活动信息表 -->
+	<dubbo:service interface="com.ninchima.app.base.service.IRestaurantActivitiesService" ref="restaurantActivitiesService" retries="0" timeout="6000" />
+	<!--  餐厅配送信息费用表 -->
+	<dubbo:service interface="com.ninchima.app.base.service.IRestaurantFeeService" ref="restaurantFeeService" retries="0" timeout="6000" />
+	<!-- 餐厅推荐表 -->
+	<dubbo:service interface="com.ninchima.app.base.service.IRestaurantRecommendReasonsService" ref="restaurantRecommendReasonsService" retries="0" timeout="6000" />
+	<!--  餐厅得分评价表-->
+	<dubbo:service interface="com.ninchima.app.base.service.IRestaurantScoreService" ref="restaurantScoreService" retries="0" timeout="6000" />
+	<!-- 餐厅信息表 -->
+	<dubbo:service interface="com.ninchima.app.base.service.IRestaurantsService" ref="restaurantsService" retries="0" timeout="6000" />
 </beans>

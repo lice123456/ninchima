@@ -1,20 +1,31 @@
 package com.ninchima.app.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ninchima.app.test.domain.sUsr;
-import com.ninchima.app.test.service.IsUsrService;
+import com.ninchima.app.base.domain.Address;
+import com.ninchima.app.base.service.IAddressService;
+import com.ninchima.app.data.utils.cookie.CookieHelper;
 
 @RestController
 public class HelloController {
 	
 	@Autowired
-	private IsUsrService sUsrService;
+	private IAddressService addressService;
+	
+	@Autowired
+	private CookieHelper cookie;
 	
 	@RequestMapping("/hello")
 	public Object sayHello() {
-		return sUsrService.selectAll(new sUsr());
+		Address add = new Address();
+		add.setAddressName("和丽苑");
+		addressService.insert(add);
+		
+		List<Address> list = addressService.selectListByObject(new Address());
+		return list;
 	}
 }

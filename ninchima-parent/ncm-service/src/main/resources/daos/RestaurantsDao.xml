@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ninchima.app.base.dao.RestaurantsDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.ninchima.app.base.domain.Restaurants" id="BaseResultMap">
+        <result property="restaurantId" column="restaurant_id"/>
+        <result property="addressId" column="address_id"/>
+        <result property="name" column="name"/>
+        <result property="address" column="address"/>
+        <result property="longitude" column="longitude"/>
+        <result property="latitude" column="latitude"/>
+        <result property="openingHours" column="opening_hours"/>
+        <result property="phone" column="phone"/>
+        <result property="imagePath" column="image_path"/>
+        <result property="orderLeadTime" column="order_lead_time"/>
+        <result property="source" column="source"/>
+        <result property="elePlatformId" column="ele_platform_id"/>
+        <result property="eleRecentOrderNum" column="ele_recent_order_num"/>
+        <result property="createTime" column="create_time"/>
+        <result property="optTime" column="opt_time"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+    
+  <sql id="Base_Column_List" >
+        restaurant_id,address_id,name,address,longitude,latitude,opening_hours,phone,image_path,order_lead_time,source,ele_platform_id,ele_recent_order_num,create_time,opt_time,remark 
+  </sql>
+
+	<select id="selectOneByObject" resultMap="BaseResultMap" parameterType="com.ninchima.app.base.domain.Restaurants">
+		select 
+		<include refid="Base_Column_List" />
+		 from restaurants where 1=1
+		 <if test="restaurantId != null">
+        	and restaurant_id = #{restaurantId,jdbcType=INTEGER}
+	  	</if>
+		 <if test="addressId != null">
+        	and address_id = #{addressId,jdbcType=INTEGER}
+	  	</if>
+		 <if test="name != null">
+        	and name = #{name,jdbcType=VARCHAR}
+	  	</if>
+		 <if test="address != null">
+        	and address = #{address,jdbcType=VARCHAR}
+	  	</if>
+		 <if test="longitude != null">
+        	and longitude = #{longitude,jdbcType=BigDecimal}
+	  	</if>
+		 <if test="latitude != null">
+        	and latitude = #{latitude,jdbcType=BigDecimal}
+	  	</if>
+		 <if test="openingHours != null">
+        	and opening_hours = #{openingHours,jdbcType=VARCHAR}
+	  	</if>
+		 <if test="phone != null">
+        	and phone = #{phone,jdbcType=VARCHAR}
+	  	</if>
+		 <if test="imagePath != null">
+        	and image_path = #{imagePath,jdbcType=VARCHAR}
+	  	</if>
+		 <if test="orderLeadTime != null">
+        	and order_lead_time = #{orderLeadTime,jdbcType=VARCHAR}
+	  	</if>
+		 <if test="source != null">
+        	and source = #{source,jdbcType=VARCHAR}
+	  	</if>
+		 <if test="elePlatformId != null">
+        	and ele_platform_id = #{elePlatformId,jdbcType=VARCHAR}
+	  	</if>
+		 <if test="eleRecentOrderNum != null">
+        	and ele_recent_order_num = #{eleRecentOrderNum,jdbcType=INTEGER}
+	  	</if>
+		 <if test="createTime != null">
+        	and create_time = #{createTime,jdbcType=VARCHAR}
+	  	</if>
+		 <if test="optTime != null">
+        	and opt_time = #{optTime,jdbcType=VARCHAR}
+	  	</if>
+		 <if test="remark != null">
+        	and remark = #{remark,jdbcType=VARCHAR}
+	  	</if>
+	</select>
+
+	<select id="selectListByObject" resultMap="BaseResultMap" parameterType="com.ninchima.app.base.domain.Restaurants" >
+		select 
+		<include refid="Base_Column_List" />
+		 from restaurants where 1=1
+         <if test="restaurantId != null">
+        	and restaurant_id = #{restaurantId,jdbcType=INTEGER}
+         </if>
+         <if test="addressId != null">
+        	and address_id = #{addressId,jdbcType=INTEGER}
+         </if>
+         <if test="name != null">
+        	and name = #{name,jdbcType=VARCHAR}
+         </if>
+         <if test="address != null">
+        	and address = #{address,jdbcType=VARCHAR}
+         </if>
+         <if test="longitude != null">
+        	and longitude = #{longitude,jdbcType=BigDecimal}
+         </if>
+         <if test="latitude != null">
+        	and latitude = #{latitude,jdbcType=BigDecimal}
+         </if>
+         <if test="openingHours != null">
+        	and opening_hours = #{openingHours,jdbcType=VARCHAR}
+         </if>
+         <if test="phone != null">
+        	and phone = #{phone,jdbcType=VARCHAR}
+         </if>
+         <if test="imagePath != null">
+        	and image_path = #{imagePath,jdbcType=VARCHAR}
+         </if>
+         <if test="orderLeadTime != null">
+        	and order_lead_time = #{orderLeadTime,jdbcType=VARCHAR}
+         </if>
+         <if test="source != null">
+        	and source = #{source,jdbcType=VARCHAR}
+         </if>
+         <if test="elePlatformId != null">
+        	and ele_platform_id = #{elePlatformId,jdbcType=VARCHAR}
+         </if>
+         <if test="eleRecentOrderNum != null">
+        	and ele_recent_order_num = #{eleRecentOrderNum,jdbcType=INTEGER}
+         </if>
+         <if test="createTime != null">
+        	and create_time = #{createTime,jdbcType=VARCHAR}
+         </if>
+         <if test="optTime != null">
+        	and opt_time = #{optTime,jdbcType=VARCHAR}
+         </if>
+         <if test="remark != null">
+        	and remark = #{remark,jdbcType=VARCHAR}
+         </if>
+	</select>
+	 
+	<insert id="insert" parameterType="com.ninchima.app.base.domain.Restaurants">
+		insert into restaurants
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="restaurantId != null">
+        	    restaurant_id ,
+	    	</if>
+			<if test="addressId != null">
+        	    address_id ,
+	    	</if>
+			<if test="name != null">
+        	    name ,
+	    	</if>
+			<if test="address != null">
+        	    address ,
+	    	</if>
+			<if test="longitude != null">
+        	    longitude ,
+	    	</if>
+			<if test="latitude != null">
+        	    latitude ,
+	    	</if>
+			<if test="openingHours != null">
+        	    opening_hours ,
+	    	</if>
+			<if test="phone != null">
+        	    phone ,
+	    	</if>
+			<if test="imagePath != null">
+        	    image_path ,
+	    	</if>
+			<if test="orderLeadTime != null">
+        	    order_lead_time ,
+	    	</if>
+			<if test="source != null">
+        	    source ,
+	    	</if>
+			<if test="elePlatformId != null">
+        	    ele_platform_id ,
+	    	</if>
+			<if test="eleRecentOrderNum != null">
+        	    ele_recent_order_num ,
+	    	</if>
+			<if test="createTime != null">
+        	    create_time ,
+	    	</if>
+			<if test="optTime != null">
+        	    opt_time ,
+	    	</if>
+			<if test="remark != null">
+        	    remark ,
+	   	    </if>
+		</trim>
+    	<trim prefix="values (" suffix=")" suffixOverrides="," >
+    	    <if test="restaurantId != null">
+        	   #{restaurantId,jdbcType=INTEGER} ,
+        	</if>
+    	    <if test="addressId != null">
+        	   #{addressId,jdbcType=INTEGER} ,
+        	</if>
+    	    <if test="name != null">
+        	   #{name,jdbcType=VARCHAR} ,
+        	</if>
+    	    <if test="address != null">
+        	   #{address,jdbcType=VARCHAR} ,
+        	</if>
+    	    <if test="longitude != null">
+        	   #{longitude,jdbcType=BigDecimal} ,
+        	</if>
+    	    <if test="latitude != null">
+        	   #{latitude,jdbcType=BigDecimal} ,
+        	</if>
+    	    <if test="openingHours != null">
+        	   #{openingHours,jdbcType=VARCHAR} ,
+        	</if>
+    	    <if test="phone != null">
+        	   #{phone,jdbcType=VARCHAR} ,
+        	</if>
+    	    <if test="imagePath != null">
+        	   #{imagePath,jdbcType=VARCHAR} ,
+        	</if>
+    	    <if test="orderLeadTime != null">
+        	   #{orderLeadTime,jdbcType=VARCHAR} ,
+        	</if>
+    	    <if test="source != null">
+        	   #{source,jdbcType=VARCHAR} ,
+        	</if>
+    	    <if test="elePlatformId != null">
+        	   #{elePlatformId,jdbcType=VARCHAR} ,
+        	</if>
+    	    <if test="eleRecentOrderNum != null">
+        	   #{eleRecentOrderNum,jdbcType=INTEGER} ,
+        	</if>
+    	    <if test="createTime != null">
+        	   #{createTime,jdbcType=VARCHAR} ,
+        	</if>
+    	    <if test="optTime != null">
+        	   #{optTime,jdbcType=VARCHAR} ,
+        	</if>
+    	    <if test="remark != null">
+        	   #{remark,jdbcType=VARCHAR} ,
+        	</if>
+    	</trim>
+	</insert>
+	 
+	<update id="update" parameterType="com.ninchima.app.base.domain.Restaurants">
+		update restaurants 
+		<set>
+			<if test="restaurantId != null">
+        	 restaurant_id = #{restaurantId,jdbcType=INTEGER} ,
+       		</if>
+			<if test="addressId != null">
+        	 address_id = #{addressId,jdbcType=INTEGER} ,
+       		</if>
+			<if test="name != null">
+        	 name = #{name,jdbcType=VARCHAR} ,
+       		</if>
+			<if test="address != null">
+        	 address = #{address,jdbcType=VARCHAR} ,
+       		</if>
+			<if test="longitude != null">
+        	 longitude = #{longitude,jdbcType=BigDecimal} ,
+       		</if>
+			<if test="latitude != null">
+        	 latitude = #{latitude,jdbcType=BigDecimal} ,
+       		</if>
+			<if test="openingHours != null">
+        	 opening_hours = #{openingHours,jdbcType=VARCHAR} ,
+       		</if>
+			<if test="phone != null">
+        	 phone = #{phone,jdbcType=VARCHAR} ,
+       		</if>
+			<if test="imagePath != null">
+        	 image_path = #{imagePath,jdbcType=VARCHAR} ,
+       		</if>
+			<if test="orderLeadTime != null">
+        	 order_lead_time = #{orderLeadTime,jdbcType=VARCHAR} ,
+       		</if>
+			<if test="source != null">
+        	 source = #{source,jdbcType=VARCHAR} ,
+       		</if>
+			<if test="elePlatformId != null">
+        	 ele_platform_id = #{elePlatformId,jdbcType=VARCHAR} ,
+       		</if>
+			<if test="eleRecentOrderNum != null">
+        	 ele_recent_order_num = #{eleRecentOrderNum,jdbcType=INTEGER} ,
+       		</if>
+			<if test="createTime != null">
+        	 create_time = #{createTime,jdbcType=VARCHAR} ,
+       		</if>
+			<if test="optTime != null">
+        	 opt_time = #{optTime,jdbcType=VARCHAR} ,
+       		</if>
+			<if test="remark != null">
+        	 remark = #{remark,jdbcType=VARCHAR} ,
+       		</if>
+		</set>
+		where 1=1
+       and  restaurant_id = #{restaurantId}
+	</update>
+</mapper>

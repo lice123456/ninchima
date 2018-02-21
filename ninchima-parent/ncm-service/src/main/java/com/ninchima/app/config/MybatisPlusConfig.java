@@ -55,7 +55,7 @@ import com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean;
  *
  * @Description : MybatisPlus配置
  * ---------------------------------
- * @Author : Liang.Guangqing
+ * @Author : wugz
  * @Date : Create in 2017/9/19 13:54
  */
 @Configuration
@@ -79,7 +79,7 @@ public class MybatisPlusConfig {
     /**
      * @Description : mybatis-plus SQL执行效率插件【生产环境可以关闭】
      * ---------------------------------
-     * @Author : Liang.Guangqing
+     * @Author : wugz
      * @Date : Create in 2017/9/19 13:57
      */
     @Bean
@@ -118,7 +118,7 @@ public class MybatisPlusConfig {
     /**
      * @Description : mybatis-plus分页插件
      * ---------------------------------
-     * @Author : Liang.Guangqing
+     * @Author : wugz
      * @Date : Create in 2017/9/19 13:59
      */
     @Bean

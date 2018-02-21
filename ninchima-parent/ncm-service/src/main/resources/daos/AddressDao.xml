@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ninchima.app.base.dao.AddressDao">
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.ninchima.app.base.domain.Address" id="BaseResultMap">
+        <result property="addressId" column="address_id"/>
+        <result property="addressName" column="address_name"/>
+        <result property="addressLongitude" column="address_longitude"/>
+        <result property="addressLatitude" column="address_latitude"/>
+        <result property="addressActv" column="address_actv"/>
+        <result property="addressClone" column="address_clone"/>
+        <result property="createTime" column="create_time"/>
+        <result property="optTime" column="opt_time"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+    
+  <sql id="Base_Column_List" >
+        address_id,address_name,address_longitude,address_latitude,address_actv,address_clone,create_time,opt_time,remark 
+  </sql>
+
+	<select id="selectOneByObject" resultMap="BaseResultMap" parameterType="com.ninchima.app.base.domain.Address">
+		select 
+		<include refid="Base_Column_List" />
+		 from address where 1=1
+		 <if test="addressId != null">
+        	and address_id = #{addressId,jdbcType=INTEGER}
+	  	 </if>
+		 <if test="addressName != null">
+        	and address_name = #{addressName,jdbcType=VARCHAR}
+	     </if>
+		 <if test="addressLongitude != null">
+        	and address_longitude = #{addressLongitude,jdbcType=DECIMAL}
+	     </if>
+		 <if test="addressLatitude != null">
+        	and address_latitude = #{addressLatitude,jdbcType=DECIMAL}
+	     </if>
+		 <if test="addressActv != null">
+        	and address_actv = #{addressActv,jdbcType=VARCHAR}
+	     </if>
+		 <if test="addressClone != null">
+        	and address_clone = #{addressClone,jdbcType=VARCHAR}
+	     </if>
+		 <if test="createTime != null">
+        	and create_time = #{createTime,jdbcType=VARCHAR}
+	     </if>
+		 <if test="optTime != null">
+        	and opt_time = #{optTime,jdbcType=VARCHAR}
+	     </if>
+		 <if test="remark != null">
+        	and remark = #{remark,jdbcType=VARCHAR}
+	     </if>
+	</select>
+
+	<select id="selectListByObject" resultMap="BaseResultMap" parameterType="com.ninchima.app.base.domain.Address" >
+		select 
+		<include refid="Base_Column_List" />
+		 from address where 1=1
+         <if test="addressId != null">
+        	and address_id = #{addressId,jdbcType=INTEGER}
+         </if>
+         <if test="addressName != null">
+        	and address_name = #{addressName,jdbcType=VARCHAR}
+         </if>
+         <if test="addressLongitude != null">
+        	and address_longitude = #{addressLongitude,jdbcType=DECIMAL}
+         </if>
+         <if test="addressLatitude != null">
+        	and address_latitude = #{addressLatitude,jdbcType=DECIMAL}
+         </if>
+         <if test="addressActv != null">
+        	and address_actv = #{addressActv,jdbcType=VARCHAR}
+         </if>
+         <if test="addressClone != null">
+        	and address_clone = #{addressClone,jdbcType=VARCHAR}
+         </if>
+         <if test="createTime != null">
+        	and create_time = #{createTime,jdbcType=VARCHAR}
+         </if>
+         <if test="optTime != null">
+        	and opt_time = #{optTime,jdbcType=VARCHAR}
+         </if>
+         <if test="remark != null">
+        	and remark = #{remark,jdbcType=VARCHAR}
+         </if>
+	</select>
+	 
+	<insert id="insert" parameterType="com.ninchima.app.base.domain.Address">
+		insert into address
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="addressId != null">
+        	    address_id ,
+	        </if>
+			<if test="addressName != null">
+        	    address_name ,
+	        </if>
+			<if test="addressLongitude != null">
+        	    address_longitude ,
+	        </if>
+			<if test="addressLatitude != null">
+        	    address_latitude ,
+	        </if>
+			<if test="addressActv != null">
+        	    address_actv ,
+	        </if>
+			<if test="addressClone != null">
+        	    address_clone ,
+	        </if>
+			<if test="createTime != null">
+        	    create_time ,
+	        </if>
+			<if test="optTime != null">
+        	    opt_time ,
+	        </if>
+			<if test="remark != null">
+        	    remark ,
+	        </if>
+		</trim>
+    	<trim prefix="values (" suffix=")" suffixOverrides="," >
+    	    <if test="addressId != null">
+        	   #{addressId,jdbcType=INTEGER} ,
+            </if>
+    	    <if test="addressName != null">
+        	   #{addressName,jdbcType=VARCHAR} ,
+            </if>
+    	    <if test="addressLongitude != null">
+        	   #{addressLongitude,jdbcType=DECIMAL} ,
+            </if>
+    	    <if test="addressLatitude != null">
+        	   #{addressLatitude,jdbcType=DECIMAL} ,
+            </if>
+    	    <if test="addressActv != null">
+        	   #{addressActv,jdbcType=VARCHAR} ,
+            </if>
+    	    <if test="addressClone != null">
+        	   #{addressClone,jdbcType=VARCHAR} ,
+             </if>
+    	    <if test="createTime != null">
+        	   #{createTime,jdbcType=VARCHAR} ,
+            </if>
+    	    <if test="optTime != null">
+        	   #{optTime,jdbcType=VARCHAR} ,
+            </if>
+    	    <if test="remark != null">
+        	   #{remark,jdbcType=VARCHAR} ,
+            </if>
+    	</trim>
+	</insert>
+	 
+	<update id="update" parameterType="com.ninchima.app.base.domain.Address">
+		update address 
+		<set>
+			<if test="addressId != null">
+        	 address_id = #{addressId,jdbcType=INTEGER} ,
+            </if>
+			<if test="addressName != null">
+        	 address_name = #{addressName,jdbcType=VARCHAR} ,
+            </if>
+			<if test="addressLongitude != null">
+        	 address_longitude = #{addressLongitude,jdbcType=DECIMAL} ,
+            </if>
+			<if test="addressLatitude != null">
+        	 address_latitude = #{addressLatitude,jdbcType=DECIMAL} ,
+            </if>
+			<if test="addressActv != null">
+        	 address_actv = #{addressActv,jdbcType=VARCHAR} ,
+            </if>
+			<if test="addressClone != null">
+        	 address_clone = #{addressClone,jdbcType=VARCHAR} ,
+            </if>
+			<if test="createTime != null">
+        	 create_time = #{createTime,jdbcType=VARCHAR} ,
+            </if>
+			<if test="optTime != null">
+        	 opt_time = #{optTime,jdbcType=VARCHAR} ,
+            </if>
+			<if test="remark != null">
+        	 remark = #{remark,jdbcType=VARCHAR} ,
+            </if>
+		</set>
+		where 1=1
+       and  address_id = #{addressId}
+	</update>
+</mapper>
